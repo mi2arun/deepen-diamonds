@@ -1,0 +1,26 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node (for future api/admin)
+node_modules/
+dist/
+build/
+.env
+.env.*
+*.log
+
+# Flutter (for future app)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+**/ios/Pods/
+**/android/.gradle/
+*.iml
+
+# Scratch
+*.tmp
