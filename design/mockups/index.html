@@ -33,11 +33,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica N
 .toolbar button{background:#333a48;color:#e7ebf3;border:1px solid #454e60;border-radius:999px;
   padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer}
 .toolbar button.active{background:var(--brand);border-color:var(--brand);color:#fff}
-.grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:center;align-items:flex-start}
+.grid{display:flex;flex-wrap:wrap;gap:14px 18px;justify-content:center;align-items:flex-start}
+
+/* each phone sits in a scaled slot so more fit on screen.
+   change --scale to zoom all mockups at once (0.72 default). */
+:root{--scale:.72}
+.slot{display:flex;flex-direction:column;align-items:center}
+/* reserved box = phone's scaled footprint; the phone is scaled inside it */
+.stage{width:calc(414px * var(--scale));height:calc(868px * var(--scale));overflow:hidden}
+.stage .phone{transform:scale(var(--scale));transform-origin:top left;margin:12px 0 0 12px}
 
 /* Phone frame */
 .phone{width:390px;height:844px;background:var(--canvas);border-radius:44px;
-  box-shadow:0 0 0 12px #0d1017,0 0 0 14px #2a2f3a,0 30px 60px rgba(0,0,0,.5);
+  box-shadow:0 0 0 10px #0d1017,0 0 0 12px #2a2f3a,0 18px 40px rgba(0,0,0,.5);
   overflow:hidden;position:relative;display:flex;flex-direction:column}
 .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:150px;height:30px;
   background:#0d1017;border-radius:0 0 18px 18px;z-index:50}
@@ -386,6 +394,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica N
 <div class="toolbar">
   <button id="tLight" class="active" onclick="setTheme('light')">☀ Light</button>
   <button id="tDark" onclick="setTheme('dark')">☾ Dark</button>
+  <span style="width:1px;background:#454e60;margin:0 4px"></span>
+  <button onclick="setScale(.55)">S</button>
+  <button id="scM" class="active" onclick="setScale(.72)">M</button>
+  <button onclick="setScale(.9)">L</button>
+  <button onclick="setScale(1)">100%</button>
 </div>
 
 <div class="grid" id="grid"></div>
@@ -773,8 +786,10 @@ function holdsScreen(){
 }
 
 function phone(caption, inner){
-  return `<div><div class="phone"><div class="notch"></div>${inner}</div>
-    <div class="caption">${caption}</div></div>`;
+  return `<div class="slot">
+    <div class="stage"><div class="phone"><div class="notch"></div>${inner}</div></div>
+    <div class="caption">${caption}</div>
+  </div>`;
 }
 
 function render(){
@@ -787,6 +802,14 @@ function setTheme(t){
   document.documentElement.setAttribute('data-theme',t);
   document.getElementById('tLight').classList.toggle('active',t==='light');
   document.getElementById('tDark').classList.toggle('active',t==='dark');
+}
+function setScale(s){
+  document.documentElement.style.setProperty('--scale',s);
+  document.querySelectorAll('.toolbar button').forEach(b=>{
+    if(['S','M','L','100%'].includes(b.textContent)) b.classList.toggle('active',
+      (b.textContent==='S'&&s===.55)||(b.textContent==='M'&&s===.72)||
+      (b.textContent==='L'&&s===.9)||(b.textContent==='100%'&&s===1));
+  });
 }
 render();
 </script>
