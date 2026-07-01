@@ -415,9 +415,12 @@ body{padding:0;display:block;background:#fff}
 .cover{align-items:center;justify-content:center;flex-direction:column;text-align:center;
   background:linear-gradient(150deg,#1267E8 0%,#0F56C4 55%,#0B3A8F 100%);color:#fff}
 .cover .clogo{width:92px;height:92px;margin-bottom:22px}
+.cover .logoplate{background:#fff;border-radius:22px;padding:34px 54px;box-shadow:0 18px 50px rgba(0,0,0,.22);
+  display:flex;align-items:center;justify-content:center}
+.cover .logoplate img{width:340px;height:auto;display:block}
 .cover h1{font-size:60px;font-weight:800;letter-spacing:-.03em;line-height:1}
 .cover h1 .g{opacity:.85}
-.cover .sub{font-size:20px;font-weight:600;opacity:.92;margin-top:16px}
+.cover .sub{font-size:20px;font-weight:600;opacity:.92;margin-top:28px}
 .cover .meta{font-size:14px;opacity:.75;margin-top:40px;letter-spacing:.04em}
 .cover .ghostbig{position:absolute;right:-60px;bottom:-80px;width:360px;height:360px;opacity:.14}
 /* closing */
@@ -849,8 +852,7 @@ function deckPage(no, screenHtml, kicker, title, desc, bullets){
 
 const COVER = `<div class="page cover">
   <div class="ghostbig">${DIAMOND_G}</div>
-  <span class="clogo">${DIAMOND}</span>
-  <h1>deep<span class="g">en</span></h1>
+  <div class="logoplate"><img src="assets/logo-blue.png" alt="Deepen Group"></div>
   <div class="sub">Diamond Inventory & Catalog App — Design Preview</div>
   <div class="meta">Customer mobile app · Storefront kiosk · Admin catalog sharing</div>
 </div>`;
